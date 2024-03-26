@@ -1,5 +1,23 @@
-data z edfread('r01.edf')
-celda-cell2mat(data{2,2});
-x=linspace(0,5,5000);
-figure(1);
-plot (x,celda)
+data = edfread('r01.edf');
+celda = cell2mat(data{2,2});
+x = linspace(0, 5, length(celda));
+
+figure;
+plot(x, celda);
+xlabel('Tiempo (segundos)');
+ylabel('Amplitud (microvoltios)');
+title('Señal de ECG fetal');
+
+picos_QRS = [1.2, 2.7, 4.1];
+
+hold on;
+
+for i = 1:length(picos_QRS)
+    linea_vertical = [picos_QRS(i), picos_QRS(i)];
+    ylims = get(gca, 'YLim');
+    
+plot(linea_vertical, ylims, 'g--'); 
+
+end
+
+hold off;
